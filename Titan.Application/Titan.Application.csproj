@@ -17,10 +17,4 @@
     <ProjectReference Include="..\Titan.Domain\Titan.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Tests\Commands\CreateTest\" />
-    <Folder Include="Tests\Commands\DeleteTest\" />
-    <Folder Include="Tests\Commands\UpdateTest\" />
-  </ItemGroup>
-
 </Project>

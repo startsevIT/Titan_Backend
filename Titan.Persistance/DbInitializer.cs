@@ -12,5 +12,9 @@ namespace Titan.Persistance
 		{
 			context.Database.EnsureCreated();
 		}
+		public static void Initialize(TheoriesDbContext context)
+		{
+			context.Database.EnsureCreated();
+		}
 	}
 }

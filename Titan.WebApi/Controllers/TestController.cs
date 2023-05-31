@@ -1,13 +1,21 @@
-﻿using MediatR;
+﻿using AutoMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Titan.Application.Tests.Commands.CreateTest;
+using Titan.Application.Tests.Commands.DeleteTest;
+using Titan.Application.Tests.Commands.UpdateTest;
 using Titan.Application.Tests.Queries.GetTestDetailsQuery;
 using Titan.Application.Tests.Queries.GetTestList;
+using Titan.WebApi.Models;
 
 namespace Titan.WebApi.Controllers
 {
 	[Route("api/[controller]")]
 	public class TestController : BaseController
 	{
+		private readonly IMapper _mapper;
+		public TestController(IMapper mapper) => _mapper = mapper;
+
 		[HttpGet]
 		public async Task<ActionResult<TestListVm>> GetAll()
 		{
@@ -28,6 +36,33 @@ namespace Titan.WebApi.Controllers
 			};
 			var vm = await Mediator.Send(query);
 			return Ok(vm);
+		}
+
+		[HttpPost]
+		public async Task<ActionResult<Guid>> Create([FromBody] CreateTestDto createTestDto)
+		{
+			var command = _mapper.Map<CreateTestCommand>(createTestDto);
+			var testId = await Mediator.Send(command);
+			return Ok(testId);
+		}
+
+		[HttpPut]
+		public async Task<IActionResult> Update([FromBody] UpdateTestDto updateTestDto)
+		{
+			var command = _mapper.Map<UpdateTestCommand>(updateTestDto);
+			await Mediator.Send(command);
+			return NoContent();
+		}
+
+		[HttpDelete("{id}")]
+		public async Task<IActionResult> Delete(Guid id)
+		{ 
+			var command = new DeleteTestCommand
+			{
+				Id = id
+			};
+			await Mediator.Send(command);
+			return NoContent();
 		}
 	}
 }

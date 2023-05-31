@@ -9,13 +9,22 @@ namespace Titan.Persistance
 	{
 		public static IServiceCollection AddPersistance( this IServiceCollection services, IConfiguration configuration)
 		{
-			var connectionString = configuration["DbConnection"];
+			var testConnectionString = configuration["TestDbConnection"];
 			services.AddDbContext<TestsDbContext>(options =>
 			{
-				options.UseSqlite(connectionString);
+				options.UseSqlite(testConnectionString);
 			});
 			services.AddScoped<ITestsDbContext>(provider => 
 				provider.GetService<TestsDbContext>());
+
+			var theoryConnectionString = configuration["TheoryDbConnection"];
+			services.AddDbContext<TheoriesDbContext>(options =>
+			{
+				options.UseSqlite(theoryConnectionString);
+			});
+			services.AddScoped<ITheoriesDbContext>(provider =>
+				provider.GetService<TheoriesDbContext>());
+
 			return services;
 		}
 	}
