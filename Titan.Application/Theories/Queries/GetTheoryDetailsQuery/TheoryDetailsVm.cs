@@ -9,6 +9,7 @@ namespace Titan.Application.Theories.Queries.GetTheoryDetailsQuery
 		public Guid Id { get; set; }
 		public string Name { get; set; }
 		public string Title { get; set; }
+		public string Picture { get; set; }
 
 		public void Mapping(Profile profile)
 		{
@@ -17,6 +18,8 @@ namespace Titan.Application.Theories.Queries.GetTheoryDetailsQuery
 				opt => opt.MapFrom(test => test.Id))
 				.ForMember(testVm => testVm.Name,
 				opt => opt.MapFrom(test => test.Name))
+				.ForMember(testVm => testVm.Picture,
+				opt => opt.MapFrom(test => test.Picture))
 				.ForMember(testVm => testVm.Title,
 				opt => opt.MapFrom(test => test.Title));
 		}

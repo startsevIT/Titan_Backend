@@ -15,7 +15,7 @@ namespace Titan.Application.Theories.Commands.DeleteTheory
 			var entity = await _dbContext.Theories.FindAsync(new object[] { request.Id }, cancellationToken);
 
 			if (entity == null)
-				throw new NotFoundException(nameof(Test), request.Id);
+				throw new NotFoundException(nameof(Theory), request.Id);
 
 			_dbContext.Theories.Remove(entity);
 			_dbContext.SaveChangesAsync(cancellationToken);

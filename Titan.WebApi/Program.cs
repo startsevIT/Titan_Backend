@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Reflection;
 using Titan.Application;
 using Titan.Application.Common.Mapping;
@@ -29,6 +30,19 @@ builder.Services.AddCors(option =>
 	});
 });
 
+builder.Services.AddAuthentication(config =>
+{ 
+	config.DefaultAuthenticateScheme = 
+	JwtBearerDefaults.AuthenticationScheme;
+	config.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+	.AddJwtBearer("Bearer",options =>
+	{
+		options.Authority = "https://localhost:44397/";
+		options.Audience = "TitanWebAPI";
+		options.RequireHttpsMetadata= false;
+	});
+
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
@@ -40,6 +54,17 @@ using (var scope = app.Services.CreateScope())
 	{
 		var testContext = serviceProvider.GetRequiredService<TestsDbContext>();
 		DbInitializer.Initialize(testContext);
+	}
+	catch (Exception exception)
+	{
+
+	}
+}
+using (var scope = app.Services.CreateScope())
+{
+	var serviceProvider = scope.ServiceProvider;
+	try
+	{
 		var theoryContext = serviceProvider.GetRequiredService<TheoriesDbContext>();
 		DbInitializer.Initialize(theoryContext);
 
@@ -51,11 +76,18 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseSwagger();
-app.UseSwaggerUI();
+app.UseSwaggerUI(config =>
+{ 
+	config.RoutePrefix = string.Empty;
+	config.SwaggerEndpoint("swagger/v1/swagger.json", "Notes API");
+});
 
 app.UseRouting();
 app.UseHttpsRedirection();
 app.UseCors("AllowAll");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

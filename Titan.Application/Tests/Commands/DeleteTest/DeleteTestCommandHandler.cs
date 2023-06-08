@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Titan.Application.Common.Exeptions;
 using Titan.Application.Interfaces;
 using Titan.Domain;
@@ -15,11 +16,9 @@ namespace Titan.Application.Tests.Commands.DeleteTest
 			var entity = await _dbContext.Tests.FindAsync(new object[] { request.Id },cancellationToken);
 
 			if (entity == null)
-			{
 				throw new NotFoundException(nameof(Test), request.Id);
-			}
-			
-			_dbContext.Tests.Remove(entity);
+
+			_dbContext.Tests.Remove(entity);		
 			_dbContext.SaveChangesAsync(cancellationToken);
 		}
 	}

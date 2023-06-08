@@ -20,6 +20,7 @@ namespace Titan.Application.Theories.Commands.UpdateTheory
 
 			entity.Name = request.Name;
 			entity.Title = request.Title;
+			entity.Picture = request.Picture;
 
 			await _dbContext.SaveChangesAsync(cancellationToken);
 		}

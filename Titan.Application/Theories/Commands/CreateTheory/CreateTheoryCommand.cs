@@ -6,5 +6,6 @@ namespace Titan.Application.Theories.Commands.CreateTheory
 	{
 		public string Name { get; set; }
 		public string Title { get; set; }
+		public string Picture { get; set; }
 	}
 }

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Titan.Application.Tests.Commands.CreateTest;
 using Titan.Application.Tests.Commands.DeleteTest;
@@ -17,6 +18,7 @@ namespace Titan.WebApi.Controllers
 		public TestController(IMapper mapper) => _mapper = mapper;
 
 		[HttpGet]
+		[Authorize]
 		public async Task<ActionResult<TestListVm>> GetAll()
 		{
 			var query = new GetTestListQuery
@@ -28,6 +30,7 @@ namespace Titan.WebApi.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[Authorize]
 		public async Task<ActionResult<TestDetailsVm>> Get(Guid id)
 		{
 			var query = new GetTestDetailsQuery
@@ -39,6 +42,7 @@ namespace Titan.WebApi.Controllers
 		}
 
 		[HttpPost]
+		[Authorize]
 		public async Task<ActionResult<Guid>> Create([FromBody] CreateTestDto createTestDto)
 		{
 			var command = _mapper.Map<CreateTestCommand>(createTestDto);
@@ -47,6 +51,7 @@ namespace Titan.WebApi.Controllers
 		}
 
 		[HttpPut]
+		[Authorize]
 		public async Task<IActionResult> Update([FromBody] UpdateTestDto updateTestDto)
 		{
 			var command = _mapper.Map<UpdateTestCommand>(updateTestDto);
@@ -55,6 +60,7 @@ namespace Titan.WebApi.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize]
 		public async Task<IActionResult> Delete(Guid id)
 		{ 
 			var command = new DeleteTestCommand

@@ -13,6 +13,7 @@ namespace Titan.Application.Tests.Queries.GetTestDetailsQuery
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
+		public string Picture { get; set; }	
 		public List<Question> Questions { get; set; }
 
 		public void Mapping(Profile profile)
@@ -20,6 +21,8 @@ namespace Titan.Application.Tests.Queries.GetTestDetailsQuery
 			profile.CreateMap<Test, TestDetailsVm>()
 				.ForMember(testVm => testVm.Id,
 				opt => opt.MapFrom(test => test.Id))
+				.ForMember(testVm => testVm.Picture,
+				opt => opt.MapFrom(test => test.Picture))
 				.ForMember(testVm => testVm.Name,
 				opt => opt.MapFrom(test => test.Name))
 				.ForMember(testVm => testVm.Questions,

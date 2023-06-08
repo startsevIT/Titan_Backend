@@ -2,7 +2,6 @@
 using AutoMapper.QueryableExtensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Runtime.CompilerServices;
 using Titan.Application.Interfaces;
 
 namespace Titan.Application.Theories.Queries.GetTheoryList

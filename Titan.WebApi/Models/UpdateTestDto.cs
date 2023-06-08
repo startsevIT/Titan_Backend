@@ -9,6 +9,7 @@ namespace Titan.WebApi.Models
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
+		public string Picture { get; set; }
 		public List<Question> Questions { get; set; }
 
 		public void Mapping(Profile profile)
@@ -18,6 +19,8 @@ namespace Titan.WebApi.Models
 				opt => opt.MapFrom(testDto => testDto.Id))
 				.ForMember(testCommand => testCommand.Name,
 				opt => opt.MapFrom(testDto => testDto.Name))
+				.ForMember(testCommand => testCommand.Picture,
+				opt => opt.MapFrom(testDto => testDto.Picture))
 				.ForMember(testCommand => testCommand.Questions,
 				opt => opt.MapFrom(testDto => testDto.Questions));
 		}

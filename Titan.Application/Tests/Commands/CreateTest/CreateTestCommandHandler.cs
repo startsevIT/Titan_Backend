@@ -15,6 +15,7 @@ namespace Titan.Application.Tests.Commands.CreateTest
 			{
 				Id = Guid.NewGuid(),
 				Name = request.Name,
+				Picture= request.Picture,
 				Questions= request.Questions,
 			};
 

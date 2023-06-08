@@ -16,6 +16,7 @@ namespace Titan.Application.Theories.Commands.CreateTheory
 				Id = Guid.NewGuid(),
 				Name = request.Name,
 				Title = request.Title,
+				Picture= request.Picture,
 			};
 
 			await _dbContext.Theories.AddAsync(theory, cancellationToken);

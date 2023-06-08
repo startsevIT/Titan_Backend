@@ -23,6 +23,7 @@ namespace Titan.Application.Tests.Commands.UpdateTest
 
 			entity.Name = request.Name;
 			entity.Questions = request.Questions;
+			entity.Picture = request.Picture;
 
 			await _dbContext.SaveChangesAsync(cancellationToken);
 		}

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Titan.Application.Tests.Commands.DeleteTest;
 using Titan.Application.Tests.Commands.UpdateTest;
@@ -18,6 +19,7 @@ namespace Titan.WebApi.Controllers
 		public TheoryController(IMapper mapper) => _mapper = mapper;
 
 		[HttpGet]
+		[Authorize]
 		public async Task<ActionResult<TheoryListVm>> GetAll()
 		{
 			var query = new GetTheoryListQuery
@@ -28,6 +30,7 @@ namespace Titan.WebApi.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[Authorize]
 		public async Task<ActionResult<TheoryDetailsVm>> Get(Guid id)
 		{
 			var query = new GetTheoryDetailsQuery
@@ -38,6 +41,7 @@ namespace Titan.WebApi.Controllers
 			return Ok(vm);
 		}
 		[HttpPost]
+		[Authorize]
 		public async Task<ActionResult<Guid>> Create([FromBody] CreateTheoryDto createTheoryDto)
 		{
 			var command = _mapper.Map<CreateTheoryCommand>(createTheoryDto);
@@ -45,6 +49,7 @@ namespace Titan.WebApi.Controllers
 			return Ok(testId);
 		}
 		[HttpPut]
+		[Authorize]
 		public async Task<IActionResult> Update([FromBody] UpdateTheoryDto updateTheoryDto)
 		{
 			var command = _mapper.Map<UpdateTheoryCommand>(updateTheoryDto);
@@ -53,6 +58,7 @@ namespace Titan.WebApi.Controllers
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize]
 		public async Task<IActionResult> Delete(Guid id)
 		{
 			var command = new DeleteTheoryCommand

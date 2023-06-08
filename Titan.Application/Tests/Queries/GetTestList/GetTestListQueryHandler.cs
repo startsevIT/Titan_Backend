@@ -6,14 +6,13 @@ using Titan.Application.Interfaces;
 
 namespace Titan.Application.Tests.Queries.GetTestList
 {
-	public class GetTestListQueryHandler
-		: IRequestHandler<GetTestListQuery, TestListVm>
+	public class GetTestListQueryHandler : IRequestHandler<GetTestListQuery, TestListVm>
 	{
 		private readonly ITestsDbContext _dbContext;
 		private readonly IMapper _mapper;
 
-		public GetTestListQueryHandler(ITestsDbContext dbContext, 
-			IMapper mapper) => (_dbContext, _mapper) = (dbContext, mapper);
+		public GetTestListQueryHandler(ITestsDbContext dbContext, IMapper mapper) 
+			=> (_dbContext, _mapper) = (dbContext, mapper);
 
 		public async Task<TestListVm> Handle(GetTestListQuery request,
 			CancellationToken cancellationToken)

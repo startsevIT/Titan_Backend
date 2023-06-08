@@ -4,6 +4,7 @@
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; }
+		public string Picture { get; set; }
 		public List<Question> Questions { get; set; }
 	}
 }
